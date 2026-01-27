@@ -21,7 +21,7 @@ export class Logging {
   public log(){
     this.authservice.login(this.user).subscribe((data)=>{
       console.log("Response ",data);
-      localStorage.setItem('token',data.token);
+      
       this.router.navigate(['/add-employee']);
     },
     (error)=>{
