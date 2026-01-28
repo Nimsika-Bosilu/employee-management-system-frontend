@@ -8,5 +8,5 @@ export const routes: Routes = [
     {path: '', component: AddEmployee ,canActivate: [authGuard]},
     {path: 'add-employee', component: AddEmployee ,canActivate: [authGuard]},
     {path: 'get-all-employees', component: ViewAllEmployees,canActivate: [authGuard]},
-    {path: 'logging', component: Logging}
+    {path: 'login', component: Logging}
 ];

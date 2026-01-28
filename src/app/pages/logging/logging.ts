@@ -19,7 +19,9 @@ export class Logging {
   constructor(private authservice:Auth,private router:Router){}
   
   public log(){
+    console.log(this.user);
     this.authservice.login(this.user).subscribe((data)=>{
+
       console.log("Response ",data);
       
       this.router.navigate(['/add-employee']);
@@ -27,7 +29,6 @@ export class Logging {
     (error)=>{
       console.error("Logging Failed",error);
     }
-  
   );
     
   }
