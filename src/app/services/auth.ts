@@ -11,7 +11,7 @@ export class Auth {
   public constructor(private http:HttpClient,private router:Router){}
 
   login(userData: any) {
-    return this.http.post(`${this.authURL}/authenticate`, userData,{withCredentials:true});
+    return this.http.post(`${this.authURL}/authenticate`, userData,{withCredentials:true,responseType: 'text' as 'json'});
   }
   logout(){
     return this.http.post(`${this.authURL}/logout`,{},{withCredentials:true}).subscribe(()=>{

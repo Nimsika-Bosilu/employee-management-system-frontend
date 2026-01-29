@@ -22,8 +22,8 @@ export class Logging {
     console.log(this.user);
     this.authservice.login(this.user).subscribe((data)=>{
 
-      console.log("Response ",data);
-      
+      console.log("Logging Response is : ",data);
+       
       this.router.navigate(['/add-employee']);
     },
     (error)=>{
