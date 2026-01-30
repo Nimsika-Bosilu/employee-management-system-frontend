@@ -1,7 +1,10 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
+import { Common } from '../../common';
+import { Department } from '../../models/department';
+import { Role } from '../../models/role';
 
 @Component({
   selector: 'app-add-employee',
@@ -9,7 +12,8 @@ import { FormsModule, NgModel } from '@angular/forms';
   templateUrl: './add-employee.html',
   styleUrl: './add-employee.css',
 })
-export class AddEmployee {
+
+export class AddEmployee implements OnInit {
 
   public employee ={
     firstName: undefined,
@@ -18,18 +22,23 @@ export class AddEmployee {
     departmentId: undefined,
     roleId:undefined
   }
+  public departmentList: Department[] = [];
+  public roleList:Role[] = [];
 
-  
+  constructor(private http:HttpClient,private common:Common){}
 
-  constructor(private http:HttpClient){
+  ngOnInit(): void {
+    this.common.getAllDepartments().subscribe(data => {
+      this.departmentList = data;
+    });
+
     
+    this.common.getAllRoles().subscribe(data => {
+      this.roleList = data;
+    });
   }
-  addEmployee(){
-    const headers =new HttpHeaders({
-'Content-Type' : 'Application/json',
-'Authorization': 'Basic c2FtYW46MTIZNA == '
-  });
-    this.http.post("http://localhost:8080/employee/add",this.employee,{headers}).subscribe((data)=>{
+  addEmployee (){
+    this.http.post("http://localhost:8080/employee/add",this.employee).subscribe((data)=>{
       console.log(data);
     });
   }

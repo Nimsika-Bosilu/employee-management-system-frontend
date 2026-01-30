@@ -6,10 +6,13 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(Auth);
   const localToken = localStorage.getItem('token');
+
+  
   
   return authService.checkLoginStatus().pipe(
     tap((isLogging)=>{
       if(!isLogging){
+        console.log("Cookie Expired or Not Logged In. Redirecting to Login...");
         router.navigate(['/login']);
       }
     })

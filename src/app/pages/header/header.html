@@ -7,13 +7,41 @@
                 </svg> </a> </div>
         <ul class="nav col-12 col-md-auto mb-2 d-flex justify-content-evenly mb-md-0">
             <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a  class="nav-link px-2" [routerLink]="['/get-all-employees']">View Employees</a></li>
-            <li><a  class="nav-link px-2" [routerLink]="['/add-employee']">Add Employess</a></li>
+            <li><a class="nav-link px-2" [routerLink]="['/get-all-employees']">View Employees</a></li>
+            <li><a class="nav-link px-2" [routerLink]="['/add-employee']">Add Employess</a></li>
             <li><a href="#" class="nav-link px-2">FAQs</a></li>
             <li><a href="#" class="nav-link px-2">About</a></li>
         </ul>
-        <div class="col-md-3 text-end"> <button type="button" [routerLink]="['/logging']" class="btn btn-outline-primary me-2">Login</button>
-            <!-- <button type="button" class="btn btn-primary">Sign-up</button>  -->
+        <div class="col-md-3 text-end d-flex align-items-center justify-content-end">
+
+    <button type="button" *ngIf="!isLoggedIn" [routerLink]="['/logging']" class="btn btn-outline-primary me-2">
+        Login
+    </button>
+
+    <div *ngIf="isLoggedIn" class="d-flex align-items-center me-3">
+
+        <div class="d-flex flex-column align-items-center justify-content-center me-2">
+            
+            <div class="rounded-circle bg-secondary d-flex justify-content-center align-items-center text-white mb-1"
+                 style="width: 32px; height: 32px; font-weight: bold;">
+                {{ userData?.username?.charAt(0) | uppercase }}
+            </div>
+
+            <span class="fw-bold text-truncate" style="font-size: 0.8rem; line-height: 1; max-width: 80px;">
+                {{ userData?.username }}
+            </span>
+            
         </div>
+
+        <span class="badge bg-primary" style="font-size: 0.7rem;">
+            {{ userData?.role }}
+        </span>
+
+    </div>
+
+    <button *ngIf="isLoggedIn" (click)="logout()" class="btn btn-sm btn-outline-danger">
+        Logout
+    </button>
+</div>
     </header>
 </div>
