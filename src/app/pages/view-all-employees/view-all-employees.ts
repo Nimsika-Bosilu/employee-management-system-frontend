@@ -10,15 +10,16 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './view-all-employees.css',
 })
 export class ViewAllEmployees {
-public employees: any;
+public employees: any[] = [];
   
 constructor(private http:HttpClient){
   this.loadEmployeeDetails();
 }
 
 loadEmployeeDetails(){
-   this.http.get("http://localhost:8080/employee/get-all-employees").subscribe((data)=>{
+   this.http.get<any[]>("http://localhost:8080/employee/get-all-employees",{ withCredentials: true }).subscribe((data)=>{
       this.employees=data;
+      console.log(data);
    });
   }
 }

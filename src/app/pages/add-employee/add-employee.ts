@@ -38,8 +38,15 @@ export class AddEmployee implements OnInit {
     });
   }
   addEmployee (){
-    this.http.post("http://localhost:8080/employee/add",this.employee).subscribe((data)=>{
+    this.http.post("http://localhost:8080/employee/add",this.employee,{ withCredentials: true }).subscribe((data)=>{
       console.log(data);
+      this.employee = {
+    firstName: undefined,
+    lastName: undefined,
+    email: undefined,
+    departmentId: undefined,
+    roleId: undefined
+  };
     });
   }
 

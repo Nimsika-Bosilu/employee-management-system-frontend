@@ -6,16 +6,16 @@ import { Role } from './models/role';
   providedIn: 'root',
 })
 export class Common {
-  private baseURL = "http://localhost:8080/common"; // අපි හදපු Controller path එක
+  private baseURL = "http://localhost:8080/common"; 
 
   constructor(private http: HttpClient) { }
 
-  // Departments ගේනවා
+ 
   getAllDepartments() {
     return this.http.get<Department[]>(`${this.baseURL}/departments`);
   }
 
-  // Roles ගේනවා
+  
   getAllRoles() {
     return this.http.get<Role[]>(`${this.baseURL}/roles`);
   }
