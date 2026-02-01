@@ -5,6 +5,7 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { Common } from '../../common';
 import { Department } from '../../models/department';
 import { Role } from '../../models/role';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-add-employee',
@@ -16,16 +17,16 @@ import { Role } from '../../models/role';
 export class AddEmployee implements OnInit {
 
   public employee ={
-    firstName: undefined,
-    lastName: undefined,
-    email: undefined,
-    departmentId: undefined,
-    roleId:undefined
+    firstName: null,
+    lastName: null,
+    email: null,
+    departmentId: null,
+    roleId:null
   }
   public departmentList: Department[] = [];
   public roleList:Role[] = [];
 
-  constructor(private http:HttpClient,private common:Common){}
+  constructor(private http:HttpClient,private common:Common,private cdr: ChangeDetectorRef){}
 
   ngOnInit(): void {
     this.common.getAllDepartments().subscribe(data => {
@@ -41,12 +42,13 @@ export class AddEmployee implements OnInit {
     this.http.post("http://localhost:8080/employee/add",this.employee,{ withCredentials: true }).subscribe((data)=>{
       console.log(data);
       this.employee = {
-    firstName: undefined,
-    lastName: undefined,
-    email: undefined,
-    departmentId: undefined,
-    roleId: undefined
+    firstName: null,
+    lastName: null,
+    email: null,
+    departmentId: null,
+    roleId: null
   };
+  this.cdr.detectChanges();
     });
   }
 
