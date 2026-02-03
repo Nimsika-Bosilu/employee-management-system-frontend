@@ -6,6 +6,7 @@ import { Common } from '../../common';
 import { Department } from '../../models/department';
 import { Role } from '../../models/role';
 import { ChangeDetectorRef } from '@angular/core';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-add-employee',
@@ -51,5 +52,6 @@ export class AddEmployee implements OnInit {
   this.cdr.detectChanges();
     });
   }
+  
 
 }
