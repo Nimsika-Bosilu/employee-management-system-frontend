@@ -22,7 +22,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           showConfirmButton: false
         });
 
-        router.navigate(['/logging']);
+        router.navigate(['/login']);
       }
 
       return throwError(() => error);

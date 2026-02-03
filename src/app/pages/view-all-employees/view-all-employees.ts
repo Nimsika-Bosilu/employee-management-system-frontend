@@ -51,6 +51,16 @@ export class ViewAllEmployees implements OnInit {
     });
   }
 
+  getDepartmentName(id: any): string {
+    const dep = this.departmentList.find(d => d.id === id);
+    return dep ? dep.name : 'Unknown';
+  }
+
+  getRoleName(id: any): string {
+    const role = this.roleList.find(r => r.id === id);
+    return role ? role.name : 'Unknown';
+  }
+
   setSelectedEmployee(emp: any) {
     this.selectedEmployee = { ...emp };
     if (!this.selectedEmployee.departmentId) this.selectedEmployee.departmentId = undefined;
@@ -58,7 +68,6 @@ export class ViewAllEmployees implements OnInit {
   }
 
   saveUpdatedEmployee() {
-    
     Swal.fire({
       title: "Do you want to save changes?",
       showDenyButton: false,
@@ -66,8 +75,6 @@ export class ViewAllEmployees implements OnInit {
       confirmButtonText: "Save",
       icon: "question"
     }).then((result) => {
-      
-      
       if (result.isConfirmed) {
         
         console.log("Updating:", this.selectedEmployee);
@@ -75,21 +82,16 @@ export class ViewAllEmployees implements OnInit {
         this.http.put("http://localhost:8080/employee/update", this.selectedEmployee, { withCredentials: true })
           .subscribe({
             next: (res) => {
-            
               Swal.fire("Saved!", "Employee details updated successfully.", "success");
-              
               this.loadEmployeeDetails(); 
 
-              
               const closeBtn = document.getElementById('modalCloseBtn');
               if(closeBtn) {
                 closeBtn.click();
               }
             },
             error: (err) => {
-              
               console.error(err);
-            
               Swal.fire("Error!", "Failed to update employee.", "error");
             }
           });

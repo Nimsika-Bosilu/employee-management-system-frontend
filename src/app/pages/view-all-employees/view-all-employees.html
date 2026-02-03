@@ -18,10 +18,14 @@
                 <td>{{emp.firstName}}</td>
                 <td>{{emp.lastName}}</td>
                 <td>{{emp.email}}</td>
-                <td>{{emp.departmentName || emp.departmentId}}</td> 
-                <td>{{emp.roleName || emp.roleId}}</td>
+                
+                <td>{{ getDepartmentName(emp.departmentId) }}</td> 
+                <td>{{ getRoleName(emp.roleId) }}</td>
+                
                 <td>
-                    <button class="btn btn-sm btn-danger m-1" (click)="deleteEmployee(emp.id)"><i class="bi bi-trash"></i></button>
+                    <button class="btn btn-sm btn-danger m-1" (click)="deleteEmployee(emp.id)">
+                        <i class="bi bi-trash"></i>
+                    </button>
                     
                     <button class="btn btn-sm btn-primary me-2" 
                             data-bs-toggle="modal" 
@@ -81,7 +85,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="modalCloseBtn" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" (click)="saveUpdatedEmployee()">Update Changes</button>
       </div>
     </div>
