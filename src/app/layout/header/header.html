@@ -1,47 +1,66 @@
 <div class="container">
-    <header
-        class="d-flex flex-wrap align-items-center justify-content-evenly justify-content-md-between py-3 mb-4 border-bottom">
-        <div class="col-md-3 mb-2 mb-md-0"> <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#bootstrap"></use>
-                </svg> </a> </div>
-        <ul class="nav col-12 col-md-auto mb-2 d-flex justify-content-evenly mb-md-0">
-            <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a class="nav-link px-2" style="cursor: pointer;" [routerLink]="['/get-all-employees']">View Employees</a></li>
-            <li><a class="nav-link px-2" style="cursor: pointer;" [routerLink]="['/add-employee']">Add Employess</a></li>
-            <li><a href="#" class="nav-link px-2">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2">About</a></li>
-        </ul>
-        <div class="col-md-3 text-end d-flex align-items-center justify-content-end">
-
-    <button type="button" *ngIf="!isLoggedIn" [routerLink]="['/logging']" class="btn btn-outline-primary me-2">
-        Login
-    </button>
-
-    <div *ngIf="isLoggedIn" class="d-flex align-items-center me-3">
-
-        <div class="d-flex flex-column align-items-center justify-content-center me-2">
-            
-            <div class="rounded-circle bg-secondary d-flex justify-content-center align-items-center text-white mb-1"
-                 style="width: 32px; height: 32px; font-weight: bold;">
-                {{ userData?.username?.charAt(0) | uppercase }}
-            </div>
-
-            <span class="fw-bold text-truncate" style="font-size: 0.8rem; line-height: 1; max-width: 80px;">
-                {{ userData?.username }}
-            </span>
-            
+    <header class="d-flex flex-wrap align-items-center justify-content-evenly justify-content-md-between py-3 mb-4 border-bottom">
+        
+        <div class="col-md-3 mb-2 mb-md-0">
+            <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                <span class="fs-4 fw-bold">EMS System</span>
+            </a>
         </div>
 
-        <span class="badge bg-primary" style="font-size: 0.7rem;">
-            {{ userData?.role }}
-        </span>
+        <ul class="nav col-12 col-md-auto mb-2 d-flex justify-content-evenly mb-md-0">
+            
+            <ng-container>
+                <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+                <li><a href="#" class="nav-link px-2">FAQs</a></li>
+                <li><a href="#" class="nav-link px-2">About</a></li>
+            </ng-container>
 
-    </div>
+            <ng-container *ngIf="isLoggedIn">
+                <li>
+                    <a class="nav-link px-2" style="cursor: pointer;" [routerLink]="['/view-all-employees']">
+                        View Employees
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link px-2" style="cursor: pointer;" [routerLink]="['/add-employee']">
+                        Add Employee
+                    </a>
+                </li>
 
-    <button *ngIf="isLoggedIn" (click)="logout()" class="btn btn-sm btn-outline-danger">
-        Logout
-    </button>
-</div>
+                <li *ngIf="userData?.role === 'admin'">
+                    <a class="nav-link px-2 fw-bold text-primary" style="cursor: pointer;" [routerLink]="['/manage-accounts']">
+                        Manage Accounts
+                    </a>
+                </li>
+            </ng-container>
+
+        </ul>
+
+        <div class="col-md-3 text-end d-flex align-items-center justify-content-end">
+
+            <button type="button" *ngIf="!isLoggedIn" [routerLink]="['/logging']" class="btn btn-outline-primary me-2">
+                Login
+            </button>
+
+            <div *ngIf="isLoggedIn" class="d-flex align-items-center me-3">
+                <div class="d-flex flex-column align-items-center justify-content-center me-2">
+                    <div class="rounded-circle bg-secondary d-flex justify-content-center align-items-center text-white mb-1"
+                        style="width: 32px; height: 32px; font-weight: bold;">
+                        {{ userData?.username?.charAt(0) | uppercase }}
+                    </div>
+                    <span class="fw-bold text-truncate" style="font-size: 0.8rem; line-height: 1; max-width: 80px;">
+                        {{ userData?.username }}
+                    </span>
+                </div>
+                <span class="badge bg-primary" style="font-size: 0.7rem;">
+                    {{ userData?.role }}
+                </span>
+            </div>
+
+            <button *ngIf="isLoggedIn" (click)="logout()" class="btn btn-sm btn-outline-danger">
+                Logout
+            </button>
+        </div>
+
     </header>
 </div>
