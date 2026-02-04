@@ -71,4 +71,7 @@ export class Auth {
     const user = this.currentUserSubject.value;
     return user && user.role === 'admin';
   }
+  getAvailableEmployees() {
+    return this.http.get<any[]>(`${this.authURL}/available-employees`, { withCredentials: true });
+}
 }

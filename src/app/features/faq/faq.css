@@ -1,0 +1,12 @@
+.card {
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.card-header:hover {
+    background-color: #f8f9fa !important;
+}
+
+.card-body {
+    border-top: 1px solid #e9ecef;
+}

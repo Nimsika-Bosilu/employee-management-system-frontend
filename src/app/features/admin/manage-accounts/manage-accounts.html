@@ -1,105 +1,126 @@
 <div class="container mt-4">
-  <div class="row">
-    
-    <div class="col-md-4">
-      <div class="card p-3 shadow-sm">
-        <h4>Create New User</h4>
-        <form (ngSubmit)="registerUser()">
-          <div class="mb-2">
-            <label>Username</label>
-            <input type="text" [(ngModel)]="newUser.username" name="username" class="form-control" required>
-          </div>
-          <div class="mb-2">
-            <label>Password</label>
-            <input type="password" [(ngModel)]="newUser.password" name="password" class="form-control" required>
-          </div>
-          <div class="mb-2">
-            <label>Role</label>
-            <select [(ngModel)]="newUser.role" name="role" class="form-select">
-              <option value="USER">HR User</option>
-              <option value="ADMIN">Admin</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-success w-100">Add User</button>
-        </form>
-      </div>
-    </div>
+    <div class="row">
 
-    <div class="col-md-8">
-      <div class="card p-3 shadow-sm">
-        <h4>System Users</h4>
-        <table class="table table-hover">
-          <thead class="table-light">
-            <tr>
-              <th>ID</th>
-              <th>Username</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let user of users">
-              <td>{{ user.id }}</td>
-              <td>{{ user.username }}</td>
-              <td><span class="badge bg-info">{{ user.role }}</span></td>
-              <td>
-                <span class="badge" [ngClass]="user.active ? 'bg-success' : 'bg-danger'">
-                  {{ user.active ? 'Active' : 'Disabled' }}
-                </span>
-              </td>
-              <td>
-                <button class="btn btn-sm me-2" 
-                        [ngClass]="user.active ? 'btn-outline-danger' : 'btn-outline-success'"
-                        (click)="toggleStatus(user)">
-                   {{ user.active ? 'Disable' : 'Enable' }}
-                </button>
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm">
+                <h4>Create New User</h4>
+                <form (ngSubmit)="registerUser()">
 
-                <button class="btn btn-sm btn-primary" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#editUserModal"
-                        (click)="setSelectedUser(user)">
-                  Edit
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                    <div class="mb-2">
+                        <label>Select Employee (For HR Manager)</label>
+                        <select [(ngModel)]="newUser.employeeId" name="employeeId" class="form-select" required>
+                            <option [ngValue]="null" disabled>Select an Employee</option>
+                            <option *ngFor="let emp of availableEmployees" [value]="emp.id">
+                                {{ emp.firstName }} {{ emp.lastName }} ({{ emp.email }})
+                            </option>
+                        </select>
+                        <div *ngIf="availableEmployees.length === 0" class="form-text text-danger">
+                            No eligible employees found (Check if they are added and have 'HR_MANAGER' role).
+                        </div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Username</label>
+                        <input type="text" [(ngModel)]="newUser.username" name="username" class="form-control" required>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Password</label>
+                        <input type="password" [(ngModel)]="newUser.password" name="password" class="form-control"
+                            required>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Role</label>
+                        <select [(ngModel)]="newUser.role" name="role" class="form-select">
+                            <option value="hr_manager">HR Manager</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100"
+                        [disabled]="!newUser.employeeId && newUser.role === 'hr_manager'">
+                        Create Account
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card p-3 shadow-sm">
+                <h4>System Users</h4>
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users">
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td><span class="badge bg-info">{{ user.role }}</span></td>
+                            <td>
+                                <span class="badge" [ngClass]="user.active ? 'bg-success' : 'bg-danger'">
+                                    {{ user.active ? 'Active' : 'Disabled' }}
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm me-2"
+                                    [ngClass]="user.active ? 'btn-outline-danger' : 'btn-outline-success'"
+                                    (click)="toggleStatus(user)">
+                                    {{ user.active ? 'Disable' : 'Enable' }}
+                                </button>
+
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#editUserModal" (click)="setSelectedUser(user)">
+                                    Edit
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit User Account</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label>Username</label>
-            <input type="text" [(ngModel)]="selectedUser.username" name="editUsername" class="form-control">
-          </div>
-          <div class="mb-3">
-            <label>New Password (Leave empty to keep current)</label>
-            <input type="password" [(ngModel)]="selectedUser.password" name="editPassword" class="form-control" placeholder="******">
-          </div>
-          <div class="mb-3">
-            <label>Role</label>
-            <select [(ngModel)]="selectedUser.role" name="editRole" class="form-select">
-              <option value="USER">HR User</option>
-              <option value="ADMIN">Admin</option>
-            </select>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="closeModalBtn" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="updateUser()">Save Changes</button>
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit User Account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label>Username</label>
+                        <input type="text" [(ngModel)]="selectedUser.username" name="editUsername" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label>New Password (Leave empty to keep current)</label>
+                        <input type="password" [(ngModel)]="selectedUser.password" name="editPassword"
+                            class="form-control" placeholder="******">
+                    </div>
+                    <div class="mb-3">
+                        <label>Role</label>
+                        <select [(ngModel)]="selectedUser.role" name="editRole" class="form-select">
+                            <option value="USER">HR User</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="closeModalBtn" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="updateUser()">Save Changes</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

@@ -1,0 +1,75 @@
+<!-- Header Section -->
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-primary">
+            <i class="bi bi-info-circle me-2"></i>About This Project
+        </h1>
+        <p class="lead text-muted">Learn more about this Employee Management System</p>
+    </div>
+
+    <!-- Project Info -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-8">
+            <div class="card border shadow-sm p-4">
+                <h4 class="fw-bold mb-3"><i class="bi bi-journal-text text-primary me-2"></i>Project Description</h4>
+                <p class="text-muted">
+                    This Employee Management System is an academic project developed to demonstrate 
+                    a full-stack web application. It allows users to manage employee records including 
+                    adding, viewing, updating, and deleting employees. The system also includes 
+                    department and role management with secure authentication.
+                </p>
+                <hr>
+                <h5 class="fw-bold mb-3"><i class="bi bi-list-check text-success me-2"></i>Key Features</h5>
+                <ul class="text-muted">
+                    <li>User Authentication & Authorization</li>
+                    <li>Add, Edit, Delete Employees</li>
+                    <li>View All Employees List</li>
+                    <li>Department & Role Assignment</li>
+                    <li>Responsive Design with Bootstrap</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technologies Used -->
+    <div class="text-center mb-4">
+        <h4 class="fw-bold"><i class="bi bi-gear-fill text-primary me-2"></i>Technologies Used</h4>
+    </div>
+    <div class="row justify-content-center g-3 mb-5">
+        <div class="col-6 col-md-3" *ngFor="let tech of technologies">
+            <div class="card border text-center p-3">
+                <i class="bi {{tech.icon}} text-primary mb-2" style="font-size: 2rem;"></i>
+                <span class="fw-bold small">{{tech.name}}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Developer Info -->
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card border shadow-sm text-center p-4">
+                <div class="mb-3">
+                    <i class="bi bi-person-circle text-primary" style="font-size: 5rem;"></i>
+                </div>
+                <h4 class="fw-bold">Nimsika Bosilu</h4>
+                <p class="text-muted mb-2">Developer</p>
+                <span class="badge bg-primary">University of Moratuwa</span>
+                <hr>
+                <p class="small text-muted mb-0">
+                    This project was created as personal project in full-stack web development.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="py-4 border-top bg-light">
+    <div class="container text-center">
+        <div class="mb-2">
+            <i class="bi bi-person-circle text-primary me-2" style="font-size: 1.5rem;"></i>
+            <span class="fw-bold">Developed by Nimsika Bosilu</span>
+        </div>
+        <p class="text-muted small mb-0">Employee Management System - Personal Project © 2024-2026</p>
+    </div>
+</footer>

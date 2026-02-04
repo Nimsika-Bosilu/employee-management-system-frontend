@@ -14,14 +14,25 @@ export class ManageAccountsComponent implements OnInit {
 
   users: any[] = [];
   selectedUser: any = {};
-  
-  // New User Form Data
-  newUser = { username: '', password: '', role: 'USER' };
+  availableEmployees: any[] = [];
+
+ newUser = { 
+    username: '', 
+    password: '', 
+    role: 'hr_manager', 
+    employeeId: null 
+  };
 
   constructor(private authService: Auth) {}
 
   ngOnInit(): void {
     this.loadUsers();
+    this.loadAvailableEmployees();
+  }
+  loadAvailableEmployees() {
+    this.authService.getAvailableEmployees().subscribe(data => {
+      this.availableEmployees = data;
+    });
   }
 
   loadUsers() {
@@ -33,9 +44,10 @@ export class ManageAccountsComponent implements OnInit {
   registerUser() {
     this.authService.registerUser(this.newUser).subscribe({
       next: () => {
-        Swal.fire('Success', 'User Created', 'success');
-        this.newUser = { username: '', password: '', role: 'USER' };
+        Swal.fire('Success', 'User Created and Linked!', 'success');
+        this.newUser = { username: '', password: '', role: 'hr_manager', employeeId: null };
         this.loadUsers();
+        this.loadAvailableEmployees(); 
       },
       error: () => Swal.fire('Error', 'Failed to create user', 'error')
     });
@@ -52,7 +64,7 @@ export class ManageAccountsComponent implements OnInit {
   }
 
   setSelectedUser(user: any) {
-    this.selectedUser = { ...user, password: '' }; // Clear password field for security
+    this.selectedUser = { ...user, password: '' }; 
   }
 
   updateUser() {

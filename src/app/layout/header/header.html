@@ -10,25 +10,25 @@
         <ul class="nav col-12 col-md-auto mb-2 d-flex justify-content-evenly mb-md-0">
             
             <ng-container>
-                <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2">About</a></li>
+                <li><a class="nav-link px-2" [routerLink]="['/home']" routerLinkActive="active">Home</a></li>
+                <li><a class="nav-link px-2" [routerLink]="['/faq']" routerLinkActive="active">FAQs</a></li>
+                <li><a class="nav-link px-2" [routerLink]="['/about']" routerLinkActive="active">About</a></li>
             </ng-container>
 
             <ng-container *ngIf="isLoggedIn">
                 <li>
-                    <a class="nav-link px-2" style="cursor: pointer;" [routerLink]="['/view-all-employees']">
+                    <a class="nav-link px-2" [routerLink]="['/view-all-employees']" routerLinkActive="active">
                         View Employees
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link px-2" style="cursor: pointer;" [routerLink]="['/add-employee']">
+                    <a class="nav-link px-2" [routerLink]="['/add-employee']" routerLinkActive="active">
                         Add Employee
                     </a>
                 </li>
 
                 <li *ngIf="userData?.role === 'admin'">
-                    <a class="nav-link px-2 fw-bold text-primary" style="cursor: pointer;" [routerLink]="['/manage-accounts']">
+                    <a class="nav-link px-2 fw-bold" [routerLink]="['/manage-accounts']" routerLinkActive="active">
                         Manage Accounts
                     </a>
                 </li>
@@ -38,7 +38,7 @@
 
         <div class="col-md-3 text-end d-flex align-items-center justify-content-end">
 
-            <button type="button" *ngIf="!isLoggedIn" [routerLink]="['/logging']" class="btn btn-outline-primary me-2">
+            <button type="button" *ngIf="!isLoggedIn" [routerLink]="['/login']" class="btn btn-outline-primary me-2">
                 Login
             </button>
 
