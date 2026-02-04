@@ -1,10 +1,10 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Common } from '../../common';
-import { Department } from '../../models/department';
-import { Role } from '../../models/role';
-import { EmployeeService } from '../../services/employee';
+import { Common } from '../../../core/services/common';
+import { Department } from '../../../models/department';
+import { Role } from '../../../models/role';
+import { EmployeeService } from '../services/employee';
 import Swal from 'sweetalert2';
 
 @Component({

@@ -1,12 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AddEmployee } from './pages/add-employee/add-employee';
-import { Header } from './pages/header/header';
-import { ViewAllEmployees } from './pages/view-all-employees/view-all-employees';
+import { Header } from './layout/header/header';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AddEmployee, Header, ViewAllEmployees],
+  imports: [RouterOutlet, Header],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

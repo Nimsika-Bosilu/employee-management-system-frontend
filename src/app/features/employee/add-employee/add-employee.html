@@ -54,7 +54,7 @@
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="role">Role</label>
                         <select [(ngModel)]="employee.roleId" name="roleId" class="form-select"
-                            [disabled]="!employee?.departmentId" id="role">
+                            [disabled]="!employee.departmentId" id="role">
                             <option *ngFor="let role of roleList" [value]="role.id">
                                 {{ role.name }}
                             </option>

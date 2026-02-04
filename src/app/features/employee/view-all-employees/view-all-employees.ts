@@ -2,10 +2,10 @@ import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
-import { Department } from '../../models/department';
-import { Role } from '../../models/role';
-import { Common } from '../../common';
-import { EmployeeService } from '../../services/employee';
+import { Department } from '../../../models/department';
+import { Role } from '../../../models/role';
+import { Common } from '../../../core/services/common';
+import { EmployeeService } from '../services/employee';
 import Swal from 'sweetalert2';
 
 @Component({

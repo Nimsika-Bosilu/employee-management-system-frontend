@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { AddEmployee } from './pages/add-employee/add-employee';
-import { ViewAllEmployees } from './pages/view-all-employees/view-all-employees';
-import { Logging } from './pages/logging/logging';
-import { authGuard } from './auth-guard';
+import { AddEmployee } from './features/employee/add-employee/add-employee';
+import { ViewAllEmployees } from './features/employee/view-all-employees/view-all-employees';
+import { Logging } from './features/auth/logging';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     {path: '', component: AddEmployee ,canActivate: [authGuard]},
