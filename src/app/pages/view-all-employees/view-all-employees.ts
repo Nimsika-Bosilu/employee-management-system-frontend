@@ -1,16 +1,16 @@
 import { CommonModule, NgFor } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 import { Department } from '../../models/department';
 import { Role } from '../../models/role';
 import { Common } from '../../common';
+import { EmployeeService } from '../../services/employee';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-all-employees',
-  imports: [CommonModule, FormsModule, HttpClientModule, NgFor],
+  imports: [CommonModule, FormsModule, NgFor], 
   templateUrl: './view-all-employees.html',
   styleUrl: './view-all-employees.css',
 })
@@ -29,7 +29,11 @@ export class ViewAllEmployees implements OnInit {
   public employees: any[] = [];
   public selectedEmployee: any = {};
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef, private common: Common) { }
+  constructor(
+    private employeeService: EmployeeService, 
+    private cdr: ChangeDetectorRef, 
+    private common: Common
+  ) { }
 
   ngOnInit(): void {
     this.loadEmployeeDetails();
@@ -44,9 +48,8 @@ export class ViewAllEmployees implements OnInit {
   }
 
   loadEmployeeDetails() {
-    this.http.get<any[]>("http://localhost:8080/employee/get-all-employees", { withCredentials: true }).subscribe((data) => {
+    this.employeeService.getAllEmployees().subscribe((data) => {
       this.employees = data;
-      console.log(data);
       this.cdr.detectChanges();
     });
   }
@@ -77,9 +80,7 @@ export class ViewAllEmployees implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         
-        console.log("Updating:", this.selectedEmployee);
-
-        this.http.put("http://localhost:8080/employee/update", this.selectedEmployee, { withCredentials: true })
+        this.employeeService.updateEmployee(this.selectedEmployee)
           .subscribe({
             next: (res) => {
               Swal.fire("Saved!", "Employee details updated successfully.", "success");
@@ -111,7 +112,7 @@ export class ViewAllEmployees implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
 
-        this.http.delete(`http://localhost:8080/employee/delete/${id}`, { withCredentials: true, responseType: 'text' })
+        this.employeeService.deleteEmployee(id)
           .subscribe({
             next: (response) => {
               Swal.fire({

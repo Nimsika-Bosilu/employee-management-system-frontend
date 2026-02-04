@@ -1,15 +1,15 @@
 import { CommonModule, NgIf } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Common } from '../../common';
 import { Department } from '../../models/department';
 import { Role } from '../../models/role';
+import { EmployeeService } from '../../services/employee';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-employee',
-  imports: [FormsModule, HttpClientModule, CommonModule, NgIf],
+  imports: [FormsModule, CommonModule, NgIf], 
   templateUrl: './add-employee.html',
   styleUrl: './add-employee.css',
 })
@@ -28,7 +28,10 @@ export class AddEmployee implements OnInit {
   public departmentList: Department[] = [];
   public roleList: Role[] = [];
 
-  constructor(private http: HttpClient, private common: Common) {}
+  constructor(
+    private employeeService: EmployeeService, 
+    private common: Common
+  ) {}
 
   ngOnInit(): void {
     this.common.getAllDepartments().subscribe(data => {
@@ -51,7 +54,8 @@ export class AddEmployee implements OnInit {
       confirmButtonText: 'Yes, Save it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.http.post("http://localhost:8080/employee/add", this.employee, { withCredentials: true })
+        
+        this.employeeService.addEmployee(this.employee)
           .subscribe({
             next: (data) => {
               Swal.fire(
