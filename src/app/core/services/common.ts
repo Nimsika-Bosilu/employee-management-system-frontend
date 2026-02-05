@@ -12,11 +12,11 @@ export class Common {
 
  
   getAllDepartments() {
-    return this.http.get<Department[]>(`${this.baseURL}/departments`);
+    return this.http.get<Department[]>(`${this.baseURL}/departments`,{ withCredentials: true });
   }
 
   
   getAllRoles() {
-    return this.http.get<Role[]>(`${this.baseURL}/roles`);
+    return this.http.get<Role[]>(`${this.baseURL}/roles`,{ withCredentials: true });
   }
 }

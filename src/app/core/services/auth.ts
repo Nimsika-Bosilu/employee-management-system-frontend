@@ -72,6 +72,6 @@ export class Auth {
     return user && user.role === 'admin';
   }
   getAvailableEmployees() {
-    return this.http.get<any[]>(`${this.authURL}/available-employees`, { withCredentials: true });
+    return this.http.get<any[]>(`${this.authURL}/available-employees`, { withCredentials: true});
 }
 }

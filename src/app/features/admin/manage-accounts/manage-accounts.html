@@ -32,14 +32,14 @@
 
                     <div class="mb-2">
                         <label>Role</label>
-                        <select [(ngModel)]="newUser.role" name="role" class="form-select">
+                        <select [(ngModel)]="newUser.user_role" name="role" class="form-select">
                             <option value="hr_manager">HR Manager</option>
                             <option value="admin">Admin</option>
                         </select>
                     </div>
 
                     <button type="submit" class="btn btn-success w-100"
-                        [disabled]="!newUser.employeeId && newUser.role === 'hr_manager'">
+                        [disabled]="!newUser.employeeId && newUser.user_role === 'hr_manager'">
                         Create Account
                     </button>
                 </form>
@@ -63,7 +63,7 @@
                         <tr *ngFor="let user of users">
                             <td>{{ user.id }}</td>
                             <td>{{ user.username }}</td>
-                            <td><span class="badge bg-info">{{ user.role }}</span></td>
+                            <td><span class="badge bg-info">{{ user.user_role }}</span></td>
                             <td>
                                 <span class="badge" [ngClass]="user.active ? 'bg-success' : 'bg-danger'">
                                     {{ user.active ? 'Active' : 'Disabled' }}
@@ -109,9 +109,9 @@
                     </div>
                     <div class="mb-3">
                         <label>Role</label>
-                        <select [(ngModel)]="selectedUser.role" name="editRole" class="form-select">
-                            <option value="USER">HR User</option>
-                            <option value="ADMIN">Admin</option>
+                        <select [(ngModel)]="selectedUser.user_role" name="editRole" class="form-select">
+                            <option value="hr_manager">HR Manager</option>
+                            <option value="admin">Admin</option>
                         </select>
                     </div>
                 </form>
